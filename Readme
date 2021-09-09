@@ -20,11 +20,11 @@ Similarly, Mod24_n_m.out files are the outputs for the model run at 24 celcius u
 
 PHYnls.Rdata: the R data file storing the estimated thermal traits for each strain.  The data were merged from Kremer et al. L&O (2017) and Chen et al. L&O (2017).
 
-global_range.R: the R code plotting the global distribution of mean temperature and seasonal temperature range (Fig. 1 and 2 in the manuscript). 
+global_range.R: the R code plotting the global distribution of mean temperature and seasonal temperature range (Fig. 5 and 6 in the manuscript). 
 
-phyto_cor.R: the R code plotting the correlations among thermal traits of phytoplankton (Fig. 4 in the manuscript).
+phyto_cor.R: the R code plotting the correlations among thermal traits of phytoplankton (Fig. 1 in the manuscript).
 
-example.R: the R code plotting the examples of growth rates of three hypothetical phytoplankton species with different Topt along the gradient of environmental temperature and phytoplankton fitness landscape on transformed optimal temperature at three different environmental temperatures (Fig. 4) and probability distributions, community growth rate and temperature sensitivity of three hypothetical communities with different thermal diversity (Fig. 6).
+example.R: the R code plotting the examples of growth rates of three hypothetical phytoplankton species with different Topt along the gradient of environmental temperature and phytoplankton fitness landscape on transformed optimal temperature at three different environmental temperatures (Fig. 2) and probability distributions, community growth rate and temperature sensitivity of three hypothetical communities with different thermal diversity (Fig. 3).
 
 output_analysis.R: the R code analyzing the model outputs and plotting the seasonal variations of community mean Topt, variance of Topt (thermal diversity), community growth rate, and community temperature sensitivity (Ew) shown as Fig. 7 in the manuscript. 
 
