@@ -1,0 +1,47 @@
+This file accompanies the manuscript entitled "Thermal diversity affects community responses to warming" submitted to Ecological Modelling and introduces each file (including the source data file) needed for reproducing the simulation results.
+
+*************Metadata for essential files*************************
+
+slab.f90: the fortran 90 module file containing several subroutines that are needed for modelling the growth rate of phytoplankton as a function of environmental temperature and optimal temperature (subroutine GROWTH) and updating nutrient, phytoplankton, and zooplankton for each time step (subroutine Biology), as well as the subroutine to calculate community temperature sensitivity (subroutine sensitivity).
+
+siteTopt.f90: the main program for running the model and specifying the mean and amplitude of environmental temperatures. It also save the model output to external files.
+
+Makefile: the makefile for compiling the fortran codes and generating the executable. It is also the place where different compiltion flags can be modified.
+
+Mod6_1_1.out: the output for the model run at 6 celcius using the first alphaG value and the first temperature amplitude (Am). 
+
+Mod6_1_2.out: the output for the model run at 6 celcius using the first alphaG value and the second temperature amplitude (Am). 
+
+Mod6_2_1.out: the output for the model run at 6 celcius using the second alphaG value and the first temperature amplitude (Am). 
+
+Mod6_2_2.out: the output for the model run at 6 celcius using the second alphaG value and the second temperature amplitude (Am). 
+
+Similarly, Mod24_n_m.out files are the outputs for the model run at 24 celcius using the nth alphaG value and the mth temperature amplitude (Am). 
+
+PHYnls.Rdata: the R data file storing the estimated thermal traits for each strain.  The data were merged from Kremer et al. L&O (2017) and Chen et al. L&O (2017).
+
+global_range.R: the R code plotting the global distribution of mean temperature and seasonal temperature range (Fig. 1 and 2 in the manuscript). 
+
+phyto_cor.R: the R code plotting the correlations among thermal traits of phytoplankton (Fig. 3 in the manuscript).
+
+example.R: the R code plotting the examples of growth rates of three hypothetical phytoplankton species with different Topt along the gradient of environmental temperature and phytoplankton fitness landscape on transformed optimal temperature at three different environmental temperatures (Fig. 4) and probability distributions, community growth rate and temperature sensitivity of three hypothetical communities with different thermal diversity (Fig. 5).
+
+output_analysis.R: the R code analyzing the model outputs and plotting the seasonal variations of community mean Topt, variance of Topt (thermal diversity), community growth rate, and community temperature sensitivity (Ew) shown as Fig. 6 in the manuscript. 
+
+Topt_hist.R: the R code plotting the histograms of Topt for different model run (Fig. 7).
+*************End of file descriptions*************************
+
+************How to run the model**********************
+The model codes have been tested in a x86_64 Red Hat linux system. The default compiler is the intel fortran compiler which can be seen in the makefile. gfortran can also be used. 
+
+1. Choose the model parameters
+The parameters of mean and amplitudes of environmental temperatures as well as the initial conditions of the model are declared in the main program siteTopt.f90. 
+
+The number of phytoplankton groups (NPHY) and optimal temperatures, kill-the-winner grazing coefficient (alphaG), timestep and the total duration of the model run are declared in slab.f90. 
+
+2. Compilation
+First use an editor such as vim to open the makefile. Choose the right fortran compile (ifort, gfortran or others) and the corresponding compiler flags. If you need a fast model run, choose the flag -O3. Conversely, if you need to run in a debug mode, choose the flag -O0. 
+
+Type 'make' in the command line should generate an executable Topt. Then type './Topt' should run the model which will generate 6 output files (Mod_*_*.out).
+
+If you need to delete previous intermediate files, type 'make clean'.
