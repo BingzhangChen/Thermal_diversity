@@ -1,47 +1,58 @@
 This file accompanies the manuscript entitled "Thermal diversity affects community responses to warming" submitted to Ecological Modelling and introduces each file (including the source data file) needed for reproducing the simulation results.
 
 *************Metadata for essential files*************************
+The fortran (.f90) files and Makefile are stored at the src/ directory.
 
 slab.f90: the fortran 90 module file containing several subroutines that are needed for modelling the growth rate of phytoplankton as a function of environmental temperature and optimal temperature (subroutine GROWTH) and updating nutrient, phytoplankton, and zooplankton for each time step (subroutine Biology), as well as the subroutine to calculate community temperature sensitivity (subroutine sensitivity).
 
 siteTopt.f90: the main program for running the model and specifying the mean and amplitude of environmental temperatures. It also save the model output to external files.
 
-Makefile: the makefile for compiling the fortran codes and generating the executable. It is also the place where different compiltion flags can be modified.
+Makefile: the makefile for compiling the fortran codes and generating the executable. 
 
-Mod6_1_1.out: the output for the model run at 6 celcius using the first alphaG value and the first temperature amplitude (Am). 
+Under the current ./ directory, 
+jobcomp: Executable bash script to compile the source code and select the compilation flags. 
 
-Mod6_1_2.out: the output for the model run at 6 celcius using the first alphaG value and the second temperature amplitude (Am). 
+Mod6_1_1_1.out: the output for the model run at 6 celcius using the first alphaG value and the first temperature amplitude (Am) assuming no temperature dependence of half-saturation constant of phytoplankton growth (Kn). 
 
-Mod6_2_1.out: the output for the model run at 6 celcius using the second alphaG value and the first temperature amplitude (Am). 
+Mod6_1_1_2.out: the output for the model run at 6 celcius using the first alphaG value and the first temperature amplitude (Am) assuming an activation energy of 0.18 eV of half-saturation constant of phytoplankton growth (Kn). 
 
-Mod6_2_2.out: the output for the model run at 6 celcius using the second alphaG value and the second temperature amplitude (Am). 
+Mod6_1_2_1.out: the output for the model run at 6 celcius using the first alphaG value and the second temperature amplitude (Am) assuming no temperature dependence of half-saturation constant of phytoplankton growth (Kn). 
 
-Similarly, Mod24_n_m.out files are the outputs for the model run at 24 celcius using the nth alphaG value and the mth temperature amplitude (Am). 
+Mod6_1_2_2.out: the output for the model run at 6 celcius using the first alphaG value and the second temperature amplitude (Am) assuming an activation energy of 0.18 eV of half-saturation constant of phytoplankton growth (Kn). 
+
+Mod6_2_1_1.out: the output for the model run at 6 celcius using the second alphaG value and the first temperature amplitude (Am) assuming no temperature dependence of Kn. 
+
+Mod6_2_1_2.out: the output for the model run at 6 celcius using the second alphaG value and the first temperature amplitude (Am) assuming an activation energy of 0.18 eV of Kn. 
+
+Mod6_2_2_1.out: the output for the model run at 6 celcius using the second alphaG value and the second temperature amplitude (Am) assuming no temperature dependence of Kn. 
+
+Mod6_2_2_2.out: the output for the model run at 6 celcius using the second alphaG value and the second temperature amplitude (Am) assuming an activation energy of 0.18 eV of Kn. 
+
+Similarly, Mod24_n_m_l.out files are the outputs for the model run at 24 celcius using the nth alphaG value and the mth temperature amplitude (Am).  l =0 indicates no temperature dependence of Kn, whereas l = 1 indicates an activation energy of 0.18 eV of Kn.
 
 PHYnls.Rdata: the R data file storing the estimated thermal traits for each strain.  The data were merged from Kremer et al. L&O (2017) and Chen et al. L&O (2017).
 
-global_range.R: the R code plotting the global distribution of mean temperature and seasonal temperature range (Fig. 5 and 6 in the manuscript). 
-
 phyto_cor.R: the R code plotting the correlations among thermal traits of phytoplankton (Fig. 1 in the manuscript).
-
 example.R: the R code plotting the examples of growth rates of three hypothetical phytoplankton species with different Topt along the gradient of environmental temperature and phytoplankton fitness landscape on transformed optimal temperature at three different environmental temperatures (Fig. 2) and probability distributions, community growth rate and temperature sensitivity of three hypothetical communities with different thermal diversity (Fig. 3).
 
-output_analysis.R: the R code analyzing the model outputs and plotting the seasonal variations of community mean Topt, variance of Topt (thermal diversity), community growth rate, and community temperature sensitivity (Ew) shown as Fig. 7 in the manuscript. 
+Fig5global_range.R: the R code plotting the global distribution of mean temperature and seasonal temperature range (Fig. 5 in the manuscript). 
 
-Topt_hist.R: the R code plotting the histograms of Topt for different model run (Fig. 8).
+output_analysis.R: the R code analyzing the model outputs and plotting the seasonal variations of community mean Topt, variance of Topt (thermal diversity), community growth rate, and community temperature sensitivity (Ew) shown as Fig. 6 in the manuscript.  It also plots the seasonal variations of nutrient, total phytoplankton biomass, and zooplankton biomass (Fig. S1 & S2). The user can also choose to plot the results of the simulation that assumes a temperature-dependent half-saturation constant for growth (Kn).
+
+Topt_hist.R: the R code plotting the histograms of Topt for different model run (Fig. 7).
+
+utils.cpp: a C++ script containing some ancilliary functions.
 *************End of file descriptions*************************
 
 ************How to run the model**********************
-The model codes have been tested in a x86_64 Red Hat linux system. The default compiler is the intel fortran compiler which can be seen in the makefile. gfortran can also be used. 
+The model codes have been tested in a x86_64 Red Hat linux system. The default compiler is the intel fortran compiler (version 2021.1) which can be seen in the makefile.  
 
 1. Choose the model parameters
-The parameters of mean and amplitudes of environmental temperatures as well as the initial conditions of the model are declared in the main program siteTopt.f90. 
+The parameters of mean and amplitudes of environmental temperatures, kill-the-winner grazing coefficient (alphaG),  as well as the initial conditions of the model are declared in the main program siteTopt.f90. 
 
-The number of phytoplankton groups (NPHY) and optimal temperatures, kill-the-winner grazing coefficient (alphaG), timestep and the total duration of the model run are declared in slab.f90. 
+The number of phytoplankton groups (NPHY) and optimal temperatures, timestep and the total duration of the model run are declared in slab.f90. 
 
 2. Compilation
-First use an editor such as vim to open the makefile. Choose the right fortran compile (ifort, gfortran or others) and the corresponding compiler flags. If you need a fast model run, choose the flag -O3. Conversely, if you need to run in a debug mode, choose the flag -O0. 
+First use an editor such as vim to open the jobcomp file. The default option is MPI=1 and Test=0. The default compiler is mpiifort. Test=0 indicates a fast model run. If the user needs to run in a debug mode, change Test=1. The user needs to specify the directory where mpiifort is located ($MPIDIR).
 
-Type 'make' in the command line should generate an executable Topt. Then type './Topt' should run the model which will generate 6 output files (Mod_*_*.out).
-
-If you need to delete previous intermediate files, type 'make clean'.
+Type './jobcomp' in the command line should generate an executable Topt. Then type './Topt' should run the model which will generate 12 output files (Mod_*_*.out).
