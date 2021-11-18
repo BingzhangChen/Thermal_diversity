@@ -143,11 +143,11 @@ y1   <- T.K(x1)
 plot(Topt, biof(VARS[1]), type = 'l', 
      xlab = bquote(italic(theta)),
      ylab = 'Biomass density')
-x1[length(x1)]=paste0(x1[length(x1)],' ºC')
+x1[length(x1)] <- paste0(x1[length(x1)],' ºC')
 axis(3, at= y1, label = x1)
 
 txt <- sapply(1:3, function(i) {
-       as.expression(bquote(sigma[theta]~' = '~.(VARS[i])))
+       as.expression(bquote(sigma[theta]^2~' = '~.(VARS[i])))
     })
 legend('topright', legend=txt,
        lty=1, col=1:3 )

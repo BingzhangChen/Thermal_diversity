@@ -35,7 +35,7 @@ NY   <- (Nout-1)/nyear
 ff     <- (Nout-NY+1):Nout
 months <- c("J","M","M","J","S","N")
 dates  <- seq(15,365, by = 60)
-U      <- 2 #Change U = 2 to plot results from temperature-dependent Kn
+U      <- 1 #Change U = 2 to plot results from temperature-dependent Kn
 fname  <- paste0('FigS1NPZ',U,'.pdf')
 pdf(fname,width=14,height=8)
 par(font.lab  = 1,
@@ -131,7 +131,7 @@ for (n in 1:2){
      let  <- letters[(NROW*(i-1)+1+NROW*2*(n-1)):(i*NROW+NROW*2*(n-1))]
      if (i == 1 && n == 1){
         YLAB <- c(expression(paste(bar(T[opt]) * " (ºC)")),
-                  expression(paste(sigma[theta])),
+                  expression(paste(sigma[theta]^2)),
                   expression(paste(µ[w] *' ('*d^-1* ')')),
                   expression(paste(E[w] *' (eV)'))
   		           )
