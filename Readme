@@ -1,4 +1,4 @@
-This file accompanies the manuscript entitled "Thermal diversity affects community responses to warming" submitted to Ecological Modelling and introduces each file (including the source data file) needed for reproducing the simulation results.
+This file accompanies the paper entitled "Thermal diversity affects community responses to warming" published on Ecological Modelling (https://doi.org/10.1016/j.ecolmodel.2021.109846) and introduces each file (including the source data file) needed for reproducing the simulation results.
 
 *************Metadata for essential files*************************
 The fortran (.f90) files and Makefile are stored at the src/ directory.
